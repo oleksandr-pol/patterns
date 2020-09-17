@@ -3,11 +3,12 @@ package main
 import (
 	"fmt"
 
-	"./concurrency"
+	"../../concurrency"
 )
 
 func main() {
 	// pub-sub example
+	fmt.Println("---pub-sub example---")
 	ps := concurrency.CreatePubSub()
 	ch := ps.Subscribe("go")
 	ps.Publish("go", "pub/sub pattern")
@@ -17,6 +18,7 @@ func main() {
 	fmt.Println(err)
 
 	// workers pool example
+	fmt.Println("---workers pool example---")
 	tasks := []*concurrency.Task{
 		concurrency.NewTask(func() error {
 			fmt.Println("task 1")
@@ -45,5 +47,11 @@ func main() {
 			fmt.Println("Has errors")
 			break
 		}
+	}
+
+	// generator
+	fmt.Println("---generator example---")
+	for i := range concurrency.Count(1, 3) {
+		fmt.Println(i)
 	}
 }
